@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MY FITNESS — личный фитнес-дневник</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#17263a;--line:#26384f;--text:#eef4fb;--muted:#91a4bb;--green:#42d392;--blue:#59a9ff;--orange:#ffb454;--red:#ff7373}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#1d3851 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:11px;padding:10px 14px;background:var(--green);color:#062018;font-weight:750}button.secondary{background:#26384f;color:var(--text)}button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}button.danger{background:#4a2630;color:#ffd8df}
+input,select,textarea{width:100%;background:#0c1726;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+label{display:block;color:var(--muted);font-size:12px;margin:0 0 5px}.shell{max-width:1240px;margin:auto;padding:22px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,var(--green),#54a9ff);display:grid;place-items:center;color:#071c20;font-weight:950;font-size:19px}.brand h1{font-size:20px;letter-spacing:1.5px;margin:0}.brand small{color:var(--muted)}.top-actions{display:flex;gap:8px;align-items:center}.layout{display:grid;grid-template-columns:220px 1fr;gap:18px}.nav,.panel,.card{background:rgba(18,29,46,.94);border:1px solid var(--line);border-radius:18px}.nav{padding:12px;height:max-content;position:sticky;top:14px}.nav button{display:flex;width:100%;text-align:left;align-items:center;gap:10px;background:transparent;color:var(--muted);margin:3px 0;font-weight:600}.nav button.active{background:#1e3448;color:var(--green)}.content{min-width:0}.pagehead{display:flex;justify-content:space-between;align-items:end;margin:0 0 16px;gap:12px}.pagehead h2{margin:0;font-size:25px}.muted{color:var(--muted)}.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:14px}.card{padding:17px}.metric{font-size:28px;font-weight:850;margin:7px 0 0}.metric small{font-size:13px;color:var(--muted);font-weight:500}.eyebrow{font-size:12px;color:var(--muted)}.two{grid-template-columns:1.25fr .85fr}.three{grid-template-columns:repeat(3,1fr)}.section-title{font-size:16px;margin:0 0 12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formgrid .wide{grid-column:1/-1}.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}.list{display:grid;gap:8px}.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px;background:#0e1a2a;border:1px solid var(--line);border-radius:12px}.pill{font-size:11px;border-radius:99px;padding:4px 8px;background:#1e3d36;color:var(--green)}.pill.blue{background:#1d344d;color:var(--blue)}.pill.orange{background:#403321;color:var(--orange)}.bar{height:8px;border-radius:99px;background:#26384f;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:99px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dayname,.day{padding:8px 3px;text-align:center}.dayname{font-size:11px;color:var(--muted)}.day{min-height:66px;background:#0e1a2a;border:1px solid var(--line);border-radius:10px;cursor:pointer}.day.today{border-color:var(--green)}.day.selected{background:#1d3a3a;border-color:var(--green)}.day .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-top:5px}.day small{display:block;color:var(--muted);font-size:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:520px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600}td button{padding:6px 9px;font-size:12px}.chart{width:100%;height:220px;display:block}.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}.hidden{display:none!important}.notice{padding:12px;border-radius:12px;background:#1c3040;color:#b9d8ef;font-size:13px}.lock{position:fixed;inset:0;background:#07101d;z-index:10;display:grid;place-items:center;padding:20px}.lockbox{width:min(420px,100%);padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:20px}.lockbox h2{margin:0 0 8px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#203a36;color:#bfffe3;padding:10px 16px;border-radius:99px;display:none;z-index:20}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.nav{position:static;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.nav button{justify-content:center;font-size:12px;padding:9px 4px}.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.shell{padding:13px}.pagehead h2{font-size:21px}}
+@media(max-width:480px){.top{align-items:flex-start}.top-actions{flex-direction:column;align-items:stretch}.brand h1{font-size:17px}.nav{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:1fr}.metric{font-size:24px}}
+</style>
+</head>
+<body>
+<div id="lock" class="lock"><div class="lockbox">
+ <div class="brand" style="margin-bottom:20px"><div class="logo">MF</div><div><h1>MY FITNESS</h1><small>Твой личный прогресс</small></div></div>
+ <h2 id="lockTitle">Создай пароль</h2><p class="muted" id="lockText">Пароль защищает доступ на этом устройстве. Не используй здесь пароль от важных аккаунтов.</p>
+ <label for="password">Пароль</label><input id="password" type="password" placeholder="Минимум 4 символа" autocomplete="current-password">
+ <button id="unlockBtn" style="width:100%;margin-top:12px">Продолжить</button><p class="muted" style="font-size:11px;margin-bottom:0">Демо-прототип: пароль хранится локально и не обеспечивает серверную защиту.</p>
+</div></div>
+<div class="shell" id="app" style="display:none">
+<header class="top"><div class="brand"><div class="logo">MF</div><div><h1>MY FITNESS</h1><small>Плавание · Силовые · Питание</small></div></div><div class="top-actions"><span class="muted" id="todayLabel"></span><button class="secondary" id="exportBtn">Экспорт данных</button><button class="ghost" id="lockBtn">Выйти</button></div></header>
+<div class="layout">
+<nav class="nav" id="nav">
+<button class="active" data-page="dashboard">◈ Обзор</button><button data-page="calendar">▦ Календарь</button><button data-page="swim">≈ Плавание</button><button data-page="strength">✚ Силовые</button><button data-page="food">◉ Питание</button><button data-page="stats">⌁ Статистика</button><button data-page="profile">⚙ Показатели</button>
+</nav>
+<main class="content">
+<section id="dashboard" class="page">
+ <div class="pagehead"><div><h2>Мой прогресс</h2><div class="muted">Последовательность важнее идеального дня.</div></div><span class="pill">Месячный план</span></div>
+ <div class="grid stats">
+  <div class="card"><div class="eyebrow">Текущий вес</div><div class="metric" id="dashWeight">— <small>кг</small></div><div class="eyebrow" id="weightGoalText">Цель: не задана</div></div>
+  <div class="card"><div class="eyebrow">Плавание</div><div class="metric" id="dashSwim">0 <small>м</small></div><div class="eyebrow">зафиксировано всего</div></div>
+  <div class="card"><div class="eyebrow">Силовые занятия</div><div class="metric" id="dashStrength">0</div><div class="eyebrow">записей в журнале</div></div>
+  <div class="card"><div class="eyebrow">Калории сегодня</div><div class="metric" id="dashCalories">0 <small>ккал</small></div><div class="eyebrow">из дневной цели</div></div>
+ </div>
+ <div class="card" style="margin-bottom:14px">
+  <div class="row between"><div><h3 class="section-title" style="margin-bottom:3px">Таймер тренировки</h3><div class="muted" style="font-size:12px">Обратный отсчёт · 2 часа</div></div><span class="pill blue" id="timerStatus">Готов к старту</span></div>
+  <div style="text-align:center;padding:12px 0 8px"><div id="timerDisplay" style="font-size:clamp(38px,8vw,58px);font-weight:900;letter-spacing:3px;font-variant-numeric:tabular-nums">02:00:00</div><div class="muted" id="timerSub" style="font-size:12px">Запусти таймер в начале тренировки</div></div>
+  <div class="bar" style="height:10px;margin-bottom:14px"><span id="timerProgress" style="width:0%"></span></div>
+  <div class="row" style="justify-content:center"><button id="timerStart">▶ Старт</button><button class="secondary" id="timerPause" disabled>Ⅱ Пауза</button><button class="ghost" id="timerReset">↺ Сбросить</button></div>
+  <div class="muted" style="font-size:11px;text-align:center;margin-top:10px">По завершении появится уведомление. Не закрывай страницу, если хочешь видеть отсчёт в реальном времени.</div>
+</div>
+<div class="grid two"><div class="card"><h3 class="section-title">Ближайшие тренировки</h3><div id="upcoming" class="list"></div></div><div class="card"><h3 class="section-title">Цель по весу</h3><div class="row between"><strong id="goalProgress">—</strong><span class="muted" id="goalPercent">0%</span></div><div class="bar" style="margin:12px 0"><span id="goalBar" style="width:0%"></span></div><p class="muted" style="font-size:12px">Заполняй вес в разделе «Показатели», чтобы видеть динамику.</p><button class="secondary" data-goto="profile">Обновить показатели</button></div></div>
+ <div class="notice" style="margin-top:14px">Важно: начни с комфортной нагрузки. Для набора мышц сочетай умеренный профицит калорий, достаточный белок, силовые тренировки и восстановление.</div>
+</section>
+<section id="calendar" class="page hidden">
+ <div class="pagehead"><div><h2>Календарь</h2><div class="muted">Выбери дату, чтобы добавить тренировку или заметку.</div></div><button id="addEventBtn">＋ Добавить</button></div>
+ <div class="card"><div class="row between" style="margin-bottom:12px"><button class="secondary" id="prevMonth">←</button><h3 id="monthTitle" style="margin:0"></h3><button class="secondary" id="nextMonth">→</button></div><div class="calendar" id="calendarGrid"></div></div>
+ <div class="card" style="margin-top:14px"><h3 class="section-title" id="selectedDateTitle">События</h3><div id="dayEvents" class="list"></div></div>
+</section>
+<section id="swim" class="page hidden">
+ <div class="pagehead"><div><h2>Журнал плавания</h2><div class="muted">Дистанция, стиль, время и темп.</div></div><button id="addSwimBtn">＋ Записать</button></div>
+ <div class="grid stats"><div class="card"><div class="eyebrow">Всего метров</div><div class="metric" id="swimTotal">0</div></div><div class="card"><div class="eyebrow">Тренировок</div><div class="metric" id="swimCount">0</div></div><div class="card"><div class="eyebrow">Средняя дистанция</div><div class="metric" id="swimAvg">0 <small>м</small></div></div><div class="card"><div class="eyebrow">Средний темп</div><div class="metric" id="swimPace">—</div></div></div>
+ <div class="card"><div class="tablewrap"><table><thead><tr><th>Дата</th><th>Стиль</th><th>Метры</th><th>Минуты</th><th>Темп /100м</th><th></th></tr></thead><tbody id="swimRows"></tbody></table></div></div>
+</section>
+<section id="strength" class="page hidden">
+ <div class="pagehead"><div><h2>Силовые тренировки</h2><div class="muted">Упражнения, подходы, повторения и рабочий вес.</div></div><button id="addStrengthBtn">＋ Записать</button></div>
+ <div class="grid stats"><div class="card"><div class="eyebrow">Занятий</div><div class="metric" id="strengthCount">0</div></div><div class="card"><div class="eyebrow">Упражнений</div><div class="metric" id="exerciseCount">0</div></div><div class="card"><div class="eyebrow">Последняя запись</div><div class="metric" style="font-size:18px" id="lastStrength">—</div></div><div class="card"><div class="eyebrow">Фокус</div><div class="metric" style="font-size:18px">Техника</div></div></div>
+ <div id="strengthList" class="list"></div>
+ <div class="notice" style="margin-top:14px">Ориентир: 2 силовые тренировки в неделю на старте. Оставляй 2–3 повтора «в запасе», не работай через боль и увеличивай вес постепенно.</div>
+</section>
+<section id="food" class="page hidden">
+ <div class="pagehead"><div><h2>Питание</h2><div class="muted">Ежедневный учёт калорий и БЖУ.</div></div><button id="addFoodBtn">＋ Добавить еду</button></div>
+ <div class="grid stats"><div class="card"><div class="eyebrow">Калории</div><div class="metric" id="foodKcal">0</div><div class="eyebrow" id="kcalTarget">Цель: 0 ккал</div></div><div class="card"><div class="eyebrow">Белки</div><div class="metric" id="foodProtein">0 <small>г</small></div></div><div class="card"><div class="eyebrow">Жиры</div><div class="metric" id="foodFat">0 <small>г</small></div></div><div class="card"><div class="eyebrow">Углеводы</div><div class="metric" id="foodCarbs">0 <small>г</small></div></div></div>
+ <div class="card"><div class="row between"><h3 class="section-title">Рацион за выбранный день</h3><input type="date" id="foodDate" style="max-width:170px"></div><div id="foodList" class="list"></div></div>
+</section>
+<section id="stats" class="page hidden">
+ <div class="pagehead"><div><h2>Статистика</h2><div class="muted">Отслеживай изменения и регулярность.</div></div><button class="secondary" id="refreshStats">Обновить</button></div>
+ <div class="grid two"><div class="card"><h3 class="section-title">Динамика веса</h3><canvas id="weightChart" class="chart"></canvas><div class="muted" style="font-size:11px">Добавляй измерения в разделе «Показатели».</div></div><div class="card"><h3 class="section-title">Дистанция плавания</h3><canvas id="swimChart" class="chart"></canvas><div class="muted" style="font-size:11px">Метры по тренировкам.</div></div></div>
+ <div class="grid three" style="margin-top:14px"><div class="card"><div class="eyebrow">Обхват груди</div><div class="metric" id="chestStat">— <small>см</small></div></div><div class="card"><div class="eyebrow">Обхват талии</div><div class="metric" id="waistStat">— <small>см</small></div></div><div class="card"><div class="eyebrow">Обхват плеча</div><div class="metric" id="armStat">— <small>см</small></div></div></div>
+</section>
+<section id="profile" class="page hidden">
+ <div class="pagehead"><div><h2>Мои показатели</h2><div class="muted">Редактируй исходные данные и цели.</div></div></div>
+ <div class="card"><h3 class="section-title">Профиль и цели</h3><div class="formgrid">
+ <div><label>Рост (см)</label><input id="pHeight" type="number"></div><div><label>Возраст</label><input id="pAge" type="number"></div>
+ <div><label>Текущий вес (кг)</label><input id="pWeight" type="number" step=".1"></div><div><label>Целевой вес (кг)</label><input id="pGoal" type="number" step=".1"></div>
+ <div><label>Калорийность в день (ккал)</label><input id="pCalories" type="number"></div><div><label>Белок в день (г)</label><input id="pProtein" type="number"></div>
+ <div><label>Обхват груди (см)</label><input id="pChest" type="number" step=".1"></div><div><label>Обхват талии (см)</label><input id="pWaist" type="number" step=".1"></div>
+ <div><label>Обхват плеча (см)</label><input id="pArm" type="number" step=".1"></div><div><label>Дата измерения</label><input id="pMeasureDate" type="date"></div>
+ </div><div class="form-actions"><button id="saveProfile">Сохранить показатели</button></div></div>
+ <div class="card" style="margin-top:14px"><h3 class="section-title">История веса</h3><div class="row"><div style="flex:1"><label>Вес (кг)</label><input id="newWeight" type="number" step=".1" placeholder="Например, 74.5"></div><div style="flex:1"><label>Дата</label><input id="newWeightDate" type="date"></div><button id="addWeight" style="align-self:end">Добавить</button></div><div id="weightHistory" class="list" style="margin-top:12px"></div></div>
+ <div class="notice" style="margin-top:14px">Данные этого прототипа хранятся в локальном браузере. Для защищённого доступа по паролю и синхронизации между телефоном и компьютером понадобится размещение на сервере с базой данных.</div>
+</section>
+</main></div></div>
+<div id="toast" class="toast"></div>
+<div id="modal" class="lock hidden" style="z-index:15"><div class="lockbox"><div class="row between"><h2 id="modalTitle">Добавить запись</h2><button class="ghost" id="closeModal">✕</button></div><div id="modalBody"></div><div class="form-actions"><button class="secondary" id="cancelModal">Отмена</button><button id="saveModal">Сохранить</button></div></div></div>
+<script>
+const $=id=>document.getElementById(id), today=()=>new Date().toISOString().slice(0,10);
+const defaultData={profile:{height:176,age:42,weight:"",goal:"",calories:0,protein:0,chest:"",waist:"",arm:""},weights:[],swims:[],strength:[],foods:[],events:[]};
+let data=JSON.parse(localStorage.getItem('myFitnessData')||'null')||defaultData;
+let selectedDate=today(),calMonth=new Date(),modalSave=null;
+function save(){localStorage.setItem('myFitnessData',JSON.stringify(data));renderAll()}
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
+function dateRu(d){return d?new Date(d+'T12:00:00').toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'}):'—'}
+function num(v){return Number(v)||0}
+function page(p){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(p).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='stats')drawCharts()}
+$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)page(b.dataset.page)});
+document.addEventListener('click',e=>{let b=e.target.closest('[data-goto]');if(b)page(b.dataset.goto)});
+function initLock(){let has=localStorage.getItem('myFitnessPin');$('lockTitle').textContent=has?'Вход в MY FITNESS':'Создай пароль';$('lockText').textContent=has?'Введи пароль, чтобы открыть дневник.':'Придумай пароль для локального доступа на этом устройстве.'}
+$('unlockBtn').onclick=()=>{let p=$('password').value,old=localStorage.getItem('myFitnessPin');if(p.length<4){toast('Пароль должен содержать минимум 4 символа');return}if(old&&p!==old){toast('Неверный пароль');return}if(!old)localStorage.setItem('myFitnessPin',p);$('lock').style.display='none';$('app').style.display='block';$('password').value='';renderAll()};
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter')$('unlockBtn').click()});
+$('lockBtn').onclick=()=>{$('app').style.display='none';$('lock').style.display='grid';initLock()};
+$('todayLabel').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'short',day:'numeric',month:'long'});
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-fitness-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Резервная копия скачана')};
+function renderDashboard(){let p=data.profile,total=data.swims.reduce((s,x)=>s+num(x.distance),0),foods=data.foods.filter(x=>x.date===today()),kcal=foods.reduce((s,x)=>s+num(x.kcal),0);$('dashWeight').innerHTML=(p.weight||'—')+' <small>кг</small>';$('weightGoalText').textContent='Цель: '+(p.goal||'не задана')+' кг';$('dashSwim').innerHTML=total+' <small>м</small>';$('dashStrength').textContent=data.strength.length;$('dashCalories').innerHTML=kcal+' <small>ккал</small>';$('goalProgress').textContent=(p.weight||'—')+' → '+(p.goal||'—')+' кг';let pct=p.weight&&p.goal?Math.min(100,Math.max(0,(p.weight/p.goal)*100)):0;$('goalPercent').textContent=Math.round(pct)+'%';$('goalBar').style.width=pct+'%';let up=data.events.filter(x=>x.date>=today()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);$('upcoming').innerHTML=up.length?up.map(x=>`<div class="item"><div><strong>${esc(x.title)}</strong><div class="muted" style="font-size:12px">${dateRu(x.date)} · ${esc(x.type||'План')}</div></div><span class="pill blue">${esc(x.time||'')}</span></div>`).join(''):'<div class="empty">Пока нет запланированных событий. Добавь тренировку в календарь.</div>'}
+function renderCalendar(){let y=calMonth.getFullYear(),m=calMonth.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0),offset=(first.getDay()+6)%7;$('monthTitle').textContent=first.toLocaleDateString('ru-RU',{month:'long',year:'numeric'});let html=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(x=>`<div class="dayname">${x}</div>`).join('');for(let i=0;i<offset;i++)html+='<div></div>';for(let d=1;d<=last.getDate();d++){let key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,ev=data.events.filter(x=>x.date===key);html+=`<div class="day ${key===today()?'today':''} ${key===selectedDate?'selected':''}" data-date="${key}"><strong>${d}</strong>${ev.length?'<br><span class="dot"></span>':''}<small>${ev.length?ev.length+' событ.':''}</small></div>`}$('calendarGrid').innerHTML=html;document.querySelectorAll('.day[data-date]').forEach(el=>el.onclick=()=>{selectedDate=el.dataset.date;renderCalendar()});$('selectedDateTitle').textContent='События · '+dateRu(selectedDate);let items=data.events.filter(x=>x.date===selectedDate);$('dayEvents').innerHTML=items.length?items.map(x=>`<div class="item"><div><strong>${esc(x.title)}</strong><div class="muted" style="font-size:12px">${esc(x.type||'План')} · ${esc(x.time||'')}</div></div><button class="danger" data-del-event="${x.id}">Удалить</button></div>`).join(''):'<div class="empty">На эту дату событий нет.</div>';document.querySelectorAll('[data-del-event]').forEach(b=>b.onclick=()=>{data.events=data.events.filter(x=>x.id!==b.dataset.delEvent);save()})}
+$('prevMonth').onclick=()=>{calMonth.setMonth(calMonth.getMonth()-1);renderCalendar()};$('nextMonth').onclick=()=>{calMonth.setMonth(calMonth.getMonth()+1);renderCalendar()};
+function renderSwim(){let total=data.swims.reduce((s,x)=>s+num(x.distance),0),cnt=data.swims.length,mins=data.swims.reduce((s,x)=>s+num(x.minutes),0);$('swimTotal').textContent=total;$('swimCount').textContent=cnt;$('swimAvg').innerHTML=(cnt?Math.round(total/cnt):0)+' <small>м</small>';$('swimPace').textContent=total&&mins?(mins/(total/100)).toFixed(2)+' мин':'—';$('swimRows').innerHTML=data.swims.length?data.swims.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${dateRu(x.date)}</td><td>${esc(x.style)}</td><td>${x.distance}</td><td>${x.minutes||'—'}</td><td>${x.distance&&x.minutes?(x.minutes/(x.distance/100)).toFixed(2):'—'}</td><td><button class="danger" data-del-swim="${x.id}">×</button></td></tr>`).join(''):'<tr><td colspan="6" class="muted">Записей пока нет.</td></tr>';document.querySelectorAll('[data-del-swim]').forEach(b=>b.onclick=()=>{data.swims=data.swims.filter(x=>x.id!==b.dataset.delSwim);save()})}
+function renderStrength(){$('strengthCount').textContent=data.strength.length;$('exerciseCount').textContent=data.strength.reduce((s,x)=>s+(x.exercises||[]).length,0);$('lastStrength').textContent=data.strength.length?dateRu(data.strength[data.strength.length-1].date):'—';$('strengthList').innerHTML=data.strength.length?data.strength.slice().reverse().map(x=>`<div class="item"><div><strong>${dateRu(x.date)} · ${esc(x.focus)}</strong><div class="muted" style="font-size:12px">${(x.exercises||[]).map(e=>`${esc(e.name)} — ${e.sets}×${e.reps}${e.kg?' · '+e.kg+' кг':''}`).join('<br>')}</div></div><button class="danger" data-del-strength="${x.id}">Удалить</button></div>`).join(''):'<div class="empty">Добавь первую силовую тренировку.</div>';document.querySelectorAll('[data-del-strength]').forEach(b=>b.onclick=()=>{data.strength=data.strength.filter(x=>x.id!==b.dataset.delStrength);save()})}
+function renderFood(){let d=$('foodDate').value||today(),items=data.foods.filter(x=>x.date===d),sum=k=>items.reduce((s,x)=>s+num(x[k]),0);$('foodKcal').textContent=sum('kcal');$('foodProtein').innerHTML=sum('protein')+' <small>г</small>';$('foodFat').innerHTML=sum('fat')+' <small>г</small>';$('foodCarbs').innerHTML=sum('carbs')+' <small>г</small>';$('kcalTarget').textContent='Цель: '+(data.profile.calories||0)+' ккал';$('foodList').innerHTML=items.length?items.map(x=>`<div class="item"><div><strong>${esc(x.name)}</strong><div class="muted" style="font-size:12px">${x.kcal} ккал · Б ${x.protein} г · Ж ${x.fat} г · У ${x.carbs} г</div></div><button class="danger" data-del-food="${x.id}">×</button></div>`).join(''):'<div class="empty">Нет записей за этот день.</div>';document.querySelectorAll('[data-del-food]').forEach(b=>b.onclick=()=>{data.foods=data.foods.filter(x=>x.id!==b.dataset.delFood);save()})}
+$('foodDate').value=today();$('foodDate').onchange=renderFood;
+function renderProfile(){let p=data.profile;for(let [id,key] of Object.entries({pHeight:'height',pAge:'age',pWeight:'weight',pGoal:'goal',pCalories:'calories',pProtein:'protein',pChest:'chest',pWaist:'waist',pArm:'arm'}))$(id).value=p[key]??'';$('pMeasureDate').value=today();$('chestStat').innerHTML=(p.chest||'—')+' <small>см</small>';$('waistStat').innerHTML=(p.waist||'—')+' <small>см</small>';$('armStat').innerHTML=(p.arm||'—')+' <small>см</small>';$('weightHistory').innerHTML=data.weights.length?data.weights.slice().reverse().map(x=>`<div class="item"><span>${dateRu(x.date)}</span><strong>${x.weight} кг</strong></div>`).join(''):'<div class="empty">История веса пока пуста.</div>'}
+$('saveProfile').onclick=()=>{let map={pHeight:'height',pAge:'age',pWeight:'weight',pGoal:'goal',pCalories:'calories',pProtein:'protein',pChest:'chest',pWaist:'waist',pArm:'arm'};for(let [id,key] of Object.entries(map))data.profile[key]=$(id).value;save();toast('Показатели сохранены')};
+$('addWeight').onclick=()=>{let w=num($('newWeight').value),d=$('newWeightDate').value||today();if(!w){toast('Укажи вес');return}data.weights.push({weight:w,date:d});data.profile.weight=w;data.weights.sort((a,b)=>a.date.localeCompare(b.date));$('newWeight').value='';save();toast('Вес добавлен')};$('newWeightDate').value=today();
+function draw(canvas,vals,color){let c=$(canvas),ctx=c.getContext('2d'),w=c.clientWidth,h=c.clientHeight,dpr=window.devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);ctx.strokeStyle='#26384f';ctx.lineWidth=1;for(let i=1;i<4;i++){let y=h*i/4;ctx.beginPath();ctx.moveTo(28,y);ctx.lineTo(w-8,y);ctx.stroke()}if(!vals.length){ctx.fillStyle='#91a4bb';ctx.font='13px sans-serif';ctx.fillText('Недостаточно данных для графика',15,h/2);return}let nums=vals.map(x=>x.v),min=Math.min(...nums),max=Math.max(...nums);if(min===max){min-=1;max+=1}ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();vals.forEach((x,i)=>{let px=32+(w-48)*(vals.length===1?.5:i/(vals.length-1)),py=h-25-(h-45)*(x.v-min)/(max-min);if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)});ctx.stroke();vals.forEach((x,i)=>{let px=32+(w-48)*(vals.length===1?.5:i/(vals.length-1)),py=h-25-(h-45)*(x.v-min)/(max-min);ctx.fillStyle=color;ctx.beginPath();ctx.arc(px,py,4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#91a4bb';ctx.font='10px sans-serif';ctx.fillText(String(x.label).slice(0,5),px-12,h-7)})}
+function drawCharts(){draw('weightChart',data.weights.slice(-10).map(x=>({v:num(x.weight),label:x.date.slice(5)})),'#42d392');draw('swimChart',data.swims.slice(-10).map(x=>({v:num(x.distance),label:x.date.slice(5)})),'#59a9ff')}
+function renderAll(){renderDashboard();renderCalendar();renderSwim();renderStrength();renderFood();renderProfile();if(!$('stats').classList.contains('hidden'))drawCharts()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function openModal(title,body,fn){$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modal').classList.remove('hidden');modalSave=fn}
+function closeModal(){$('modal').classList.add('hidden');modalSave=null}
+$('closeModal').onclick=$('cancelModal').onclick=closeModal;$('saveModal').onclick=()=>{if(modalSave&&modalSave())closeModal()};
+$('addEventBtn').onclick=()=>openModal('Новое событие',`<div class="formgrid"><div class="wide"><label>Название</label><input id="mTitle" placeholder="Например, плавание"></div><div><label>Тип</label><select id="mType"><option>Плавание</option><option>Силовая</option><option>Отдых</option><option>Другое</option></select></div><div><label>Время</label><input id="mTime" type="time"></div><div class="wide"><label>Дата</label><input id="mDate" type="date" value="${selectedDate}"></div></div>`,()=>{let t=$('mTitle').value.trim();if(!t){toast('Укажи название');return false}data.events.push({id:crypto.randomUUID(),title:t,type:$('mType').value,time:$('mTime').value,date:$('mDate').value});save();return true});
+$('addSwimBtn').onclick=()=>openModal('Запись плавания',`<div class="formgrid"><div><label>Дата</label><input id="mDate" type="date" value="${today()}"></div><div><label>Стиль</label><select id="mStyle"><option>Кроль</option><option>Брасс</option><option>На спине</option><option>Баттерфляй</option><option>Комплекс</option></select></div><div><label>Дистанция (м)</label><input id="mDistance" type="number" placeholder="800"></div><div><label>Время (мин)</label><input id="mMinutes" type="number" placeholder="35"></div><div class="wide"><label>Заметка</label><input id="mNote" placeholder="Самочувствие, техника, ощущения"></div></div>`,()=>{let d=num($('mDistance').value);if(!d){toast('Укажи дистанцию');return false}data.swims.push({id:crypto.randomUUID(),date:$('mDate').value,style:$('mStyle').value,distance:d,minutes:num($('mMinutes').value),note:$('mNote').value});save();return true});
+$('addStrengthBtn').onclick=()=>openModal('Силовая тренировка',`<div class="formgrid"><div><label>Дата</label><input id="mDate" type="date" value="${today()}"></div><div><label>Фокус</label><select id="mFocus"><option>Верх тела</option><option>Ноги и корпус</option><option>Всё тело</option></select></div><div class="wide"><label>Упражнения (по одному на строку: название;подходы;повторения;кг)</label><textarea id="mExercises" rows="5" placeholder="Жим гантелей;3;10;12&#10;Тяга блока;3;12;35&#10;Планка;3;40;0"></textarea></div></div>`,()=>{let ex=$('mExercises').value.split('\n').filter(Boolean).map(line=>{let a=line.split(';');return{name:a[0]||'Упражнение',sets:num(a[1]),reps:num(a[2]),kg:num(a[3])}});if(!ex.length){toast('Добавь хотя бы одно упражнение');return false}data.strength.push({id:crypto.randomUUID(),date:$('mDate').value,focus:$('mFocus').value,exercises:ex});save();return true});
+$('addFoodBtn').onclick=()=>openModal('Добавить продукт / блюдо',`<div class="formgrid"><div class="wide"><label>Название</label><input id="mName" placeholder="Например, курица с рисом"></div><div><label>Дата</label><input id="mDate" type="date" value="${$('foodDate').value||today()}"></div><div><label>Калории (ккал)</label><input id="mKcal" type="number"></div><div><label>Белки (г)</label><input id="mProtein" type="number"></div><div><label>Жиры (г)</label><input id="mFat" type="number"></div><div><label>Углеводы (г)</label><input id="mCarbs" type="number"></div></div>`,()=>{let n=$('mName').value.trim();if(!n){toast('Укажи название еды');return false}data.foods.push({id:crypto.randomUUID(),name:n,date:$('mDate').value,kcal:num($('mKcal').value),protein:num($('mProtein').value),fat:num($('mFat').value),carbs:num($('mCarbs').value)});$('foodDate').value=$('mDate').value;save();return true});
+$('refreshStats').onclick=drawCharts;
+
+// Таймер тренировки на 2 часа. Состояние сохраняется локально при перезагрузке страницы.
+const TIMER_TOTAL = 2 * 60 * 60 * 1000;
+let timerState = JSON.parse(localStorage.getItem('myFitnessTimer') || 'null') || {
+  remaining: TIMER_TOTAL, endAt: null, running: false, completed: false
+};
+let timerInterval = null;
+function timerRemaining() {
+  return timerState.running ? Math.max(0, timerState.endAt - Date.now()) : Math.max(0, timerState.remaining);
+}
+function fmtTimer(ms) {
+  let sec = Math.ceil(ms / 1000), h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  return [h,m,s].map(v => String(v).padStart(2,'0')).join(':');
+}
+function saveTimer() { localStorage.setItem('myFitnessTimer', JSON.stringify(timerState)); }
+function renderTimer() {
+  let rem = timerRemaining(), elapsed = TIMER_TOTAL - rem;
+  $('timerDisplay').textContent = fmtTimer(rem);
+  $('timerProgress').style.width = Math.min(100, elapsed / TIMER_TOTAL * 100) + '%';
+  $('timerStart').disabled = timerState.running || timerState.completed;
+  $('timerPause').disabled = !timerState.running;
+  $('timerStatus').textContent = timerState.completed ? 'Завершено' : timerState.running ? 'Идёт тренировка' : rem < TIMER_TOTAL ? 'На паузе' : 'Готов к старту';
+  $('timerStatus').className = 'pill' + (timerState.completed ? '' : timerState.running ? ' orange' : ' blue');
+  $('timerSub').textContent = timerState.completed ? 'Отличная работа! Двухчасовая тренировка завершена.' : timerState.running ? 'Время тренировки идёт' : rem < TIMER_TOTAL ? 'Отсчёт приостановлен' : 'Запусти таймер в начале тренировки';
+}
+function stopTimerInterval() { if (timerInterval) clearInterval(timerInterval); timerInterval = null; }
+function tickTimer() {
+  if (!timerState.running) return;
+  if (timerRemaining() <= 0) {
+    timerState.remaining = 0; timerState.running = false; timerState.endAt = null; timerState.completed = true;
+    saveTimer(); stopTimerInterval(); renderTimer(); toast('Тренировка завершена — 2 часа!');
+    if ('Notification' in window && Notification.permission === 'granted') new Notification('MY FITNESS', {body:'Двухчасовая тренировка завершена!'});
+    return;
+  }
+  renderTimer();
+}
+$('timerStart').onclick = () => {
+  if (timerState.completed) return;
+  if (timerState.remaining <= 0) timerState.remaining = TIMER_TOTAL;
+  timerState.endAt = Date.now() + timerState.remaining; timerState.running = true;
+  saveTimer(); stopTimerInterval(); timerInterval = setInterval(tickTimer, 250); renderTimer();
+  if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+  toast('Таймер тренировки запущен');
+};
+$('timerPause').onclick = () => {
+  if (!timerState.running) return;
+  timerState.remaining = timerRemaining(); timerState.running = false; timerState.endAt = null;
+  saveTimer(); stopTimerInterval(); renderTimer(); toast('Таймер на паузе');
+};
+$('timerReset').onclick = () => {
+  timerState = {remaining:TIMER_TOTAL,endAt:null,running:false,completed:false};
+  saveTimer(); stopTimerInterval(); renderTimer(); toast('Таймер сброшен на 2 часа');
+};
+if (timerState.running) {
+  if (timerRemaining() <= 0) tickTimer();
+  else { timerInterval = setInterval(tickTimer, 250); }
+}
+renderTimer();
+
+initLock();
+</script></body></html>
